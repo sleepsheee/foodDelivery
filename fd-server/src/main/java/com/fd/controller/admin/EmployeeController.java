@@ -1,6 +1,7 @@
 package com.fd.controller.admin;
 
 import com.fd.constant.JwtClaimsConstant;
+import com.fd.dto.EmployeeDTO;
 import com.fd.dto.EmployeeLoginDTO;
 import com.fd.entity.Employee;
 import com.fd.properties.JwtProperties;
@@ -75,5 +76,20 @@ public class EmployeeController {
     public Result<String> logout() {
         return Result.success();
     }
+
+    /**
+     * save
+     * @param employeeDTO
+     * @return
+     */
+    @ApiOperation("save")
+    @PostMapping()
+    public Result<String> save(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("save a new employee：{}", employeeDTO);
+        employeeService.save(employeeDTO);
+        return Result.success();
+    }
+
+
 
 }
