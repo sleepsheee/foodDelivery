@@ -93,4 +93,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return employeeRepository.findByNameContaining(employeePageQueryDTO.getName(), pageable);
     }
+
+    /**
+     * Lock and Unlock account
+     * param status, id
+     * return
+     */
+    public void lockOrUnLock(Integer status, Long id) {
+        //update employee set status = ? where id = ?
+        Employee employee = employeeRepository.findById(id).orElse(null);
+        employee.setStatus(status);
+        employeeRepository.save(employee);
+    }
 }

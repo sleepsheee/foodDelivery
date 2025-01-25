@@ -104,7 +104,17 @@ public class EmployeeController {
         return Result.success(pageResult);
     }
 
-
-
+    /**
+     * Lock and Unlock account
+     * param status, id
+     * return
+     */
+    @ApiOperation("Lock or Unlock employee account")
+    @PostMapping("/status/{status}")
+    public Result lockOrUnLock(@PathVariable Integer status, Long id ) {
+        log.info("Lock or Unlock employee account{},{}", status, id);
+        employeeService.lockOrUnLock(status, id);
+        return Result.success();
+    }
 
 }

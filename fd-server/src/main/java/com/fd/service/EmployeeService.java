@@ -29,4 +29,11 @@ public interface EmployeeService {
      */
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
+    /**
+     * Lock and Unlock account
+     * param status, id
+     * return
+     */
+    void lockOrUnLock(Integer status, Long id);
+
 }
