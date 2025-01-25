@@ -3,6 +3,7 @@ package com.fd.service.impl;
 import com.fd.constant.MessageConstant;
 import com.fd.constant.PasswordConstant;
 import com.fd.constant.StatusConstant;
+import com.fd.context.BaseContext;
 import com.fd.dto.EmployeeDTO;
 import com.fd.dto.EmployeeLoginDTO;
 import com.fd.dto.EmployeePageQueryDTO;
@@ -74,9 +75,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
         employee.setCreateTime(LocalDateTime.now());
         employee.setUpdateTime(LocalDateTime.now());
-        // TODO change to the id of the user which is currently on
-        employee.setCreateUser(10L);
-        employee.setUpdateUser(10L);
+        //Using ThreadLocal:c  the id of the user which is currently on
+        employee.setCreateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());
         employeeRepository.save(employee);
     }
 
