@@ -5,6 +5,7 @@ import com.fd.constant.PasswordConstant;
 import com.fd.constant.StatusConstant;
 import com.fd.dto.EmployeeDTO;
 import com.fd.dto.EmployeeLoginDTO;
+import com.fd.dto.EmployeePageQueryDTO;
 import com.fd.entity.Employee;
 import com.fd.exception.AccountLockedException;
 import com.fd.exception.AccountNotFoundException;
@@ -13,9 +14,13 @@ import com.fd.repository.EmployeeRepository;
 import com.fd.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import org.springframework.data.domain.Pageable;
 import java.time.LocalDateTime;
 
 @Service
@@ -26,9 +31,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /**
      * Employee Login
-     *
-     * @param employeeLoginDTO
-     * @return
+     * param employeeLoginDTO
+     * return
      */
     public Employee login(EmployeeLoginDTO employeeLoginDTO) {
         String username = employeeLoginDTO.getUsername();
@@ -60,9 +64,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /**
      * Employee save
-     *
-     * @param employeeDTO
-     * @return
+     * param employeeDTO
+     * return
      */
     public void save(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
@@ -77,4 +80,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.save(employee);
     }
 
+    /**
+     * Employee search
+     * param employeePageQueryDTO
+     * return
+     */
+    public Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+        Pageable pageable = PageRequest.of(employeePageQueryDTO.getPage() - 1,  employeePageQueryDTO.getPageSize(),  Sort.by("id").descending() );
+        if(employeePageQueryDTO.getName() == null || employeePageQueryDTO.getName().isEmpty()) {
+            return employeeRepository.findAll(pageable);
+        }
+        return employeeRepository.findByNameContaining(employeePageQueryDTO.getName(), pageable);
+    }
 }

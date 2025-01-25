@@ -3,8 +3,10 @@ package com.fd.controller.admin;
 import com.fd.constant.JwtClaimsConstant;
 import com.fd.dto.EmployeeDTO;
 import com.fd.dto.EmployeeLoginDTO;
+import com.fd.dto.EmployeePageQueryDTO;
 import com.fd.entity.Employee;
 import com.fd.properties.JwtProperties;
+import com.fd.result.PageResult;
 import com.fd.result.Result;
 import com.fd.service.EmployeeService;
 import com.fd.utils.JwtUtil;
@@ -13,10 +15,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,9 +37,8 @@ public class EmployeeController {
 
     /**
      * Login
-     *
-     * @param employeeLoginDTO
-     * @return
+     * param employeeLoginDTO
+     * return
      */
     @ApiOperation("login")
     @PostMapping("/login")
@@ -68,8 +67,7 @@ public class EmployeeController {
 
     /**
      * Logout
-     *
-     * @return
+     * return
      */
     @ApiOperation("logout")
     @PostMapping("/logout")
@@ -79,8 +77,8 @@ public class EmployeeController {
 
     /**
      * save
-     * @param employeeDTO
-     * @return
+     * param employeeDTO
+     * return
      */
     @ApiOperation("save")
     @PostMapping()
@@ -89,6 +87,23 @@ public class EmployeeController {
         employeeService.save(employeeDTO);
         return Result.success();
     }
+
+    /**
+     * save
+     * param employeePageQueryDTO
+     * return
+     */
+    @ApiOperation("search")
+    @GetMapping("/page")
+    public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO){
+        log.info("search employee：{}", employeePageQueryDTO);
+        Page<Employee> employeePage = employeeService.pageQuery(employeePageQueryDTO);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(employeePage.getTotalElements());
+        pageResult.setRecords(employeePage.getContent());
+        return Result.success(pageResult);
+    }
+
 
 
 
