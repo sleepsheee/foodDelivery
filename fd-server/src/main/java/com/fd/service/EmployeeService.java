@@ -36,4 +36,19 @@ public interface EmployeeService {
      */
     void lockOrUnLock(Integer status, Long id);
 
+    /**
+     * get employee by id
+     * param id
+     * return
+     */
+    Employee getById(Long id);
+
+    /**
+     * update employee
+     * param employeeDTO
+     * return
+     */
+    void update(EmployeeDTO employeeDTO);
+
+
 }

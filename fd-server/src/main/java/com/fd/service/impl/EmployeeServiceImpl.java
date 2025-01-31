@@ -105,4 +105,28 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setStatus(status);
         employeeRepository.save(employee);
     }
+
+    /**
+     * get employee by id
+     * param id
+     * return
+     */
+    public Employee getById(Long id) {
+        Employee employee = employeeRepository.findById(id).orElse(null);
+        employee.setPassword("****");
+        return employee;
+    }
+
+    /**
+     * update employee
+     * param employeeDTO
+     * return
+     */
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee = employeeRepository.findById(employeeDTO.getId()).orElse(null);
+        BeanUtils.copyProperties(employeeDTO, employee);
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        employeeRepository.save(employee);
+    }
 }
