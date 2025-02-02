@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -11,10 +13,13 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name="category")
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //类型: 1菜品分类 2套餐分类
@@ -30,14 +35,18 @@ public class Category implements Serializable {
     private Integer status;
 
     //创建时间
+    @Column(name = "create_time")
     private LocalDateTime createTime;
 
     //更新时间
+    @Column(name = "update_time")
     private LocalDateTime updateTime;
 
     //创建人
+    @Column(name = "create_user")
     private Long createUser;
 
     //修改人
+    @Column(name = "update_user")
     private Long updateUser;
 }

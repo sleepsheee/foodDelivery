@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,13 +17,18 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name="setmeal")
 public class Setmeal implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //分类id
+    @Column(name = "category_id")
     private Long categoryId;
 
     //套餐名称
@@ -39,11 +46,15 @@ public class Setmeal implements Serializable {
     //图片
     private String image;
 
+    @Column(name = "create_time")
     private LocalDateTime createTime;
 
+    @Column(name = "update_time")
     private LocalDateTime updateTime;
 
+    @Column(name = "create_user")
     private Long createUser;
 
+    @Column(name = "update_user")
     private Long updateUser;
 }
