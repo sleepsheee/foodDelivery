@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fd.audit.AutoFillAuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name="employee")
+@EntityListeners(AutoFillAuditingEntityListener.class)
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
