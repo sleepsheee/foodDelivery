@@ -1,5 +1,6 @@
 package com.fd.entity;
 
+import com.fd.audit.AutoFillAuditingEntityListener;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name="dish")
+@EntityListeners(AutoFillAuditingEntityListener.class)
 public class Dish implements Serializable {
 
     private static final long serialVersionUID = 1L;

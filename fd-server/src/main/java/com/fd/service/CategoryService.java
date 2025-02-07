@@ -5,6 +5,8 @@ import com.fd.dto.CategoryPageQueryDTO;
 import com.fd.entity.Category;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface CategoryService {
 
     /**
@@ -38,4 +40,6 @@ public interface CategoryService {
      * param id
      */
     void startOrStop(Integer status, Long id);
+
+    List<Category> list(Integer type);
 }
