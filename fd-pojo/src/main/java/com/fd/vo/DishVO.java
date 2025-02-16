@@ -5,11 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Builder
@@ -21,6 +21,7 @@ public class DishVO implements Serializable {
     //菜品名称
     private String name;
     //菜品分类id
+    @Column(name = "category_id")
     private Long categoryId;
     //菜品价格
     private BigDecimal price;
@@ -31,11 +32,13 @@ public class DishVO implements Serializable {
     //0 停售 1 起售
     private Integer status;
     //更新时间
+    @Column(name = "update_time")
     private LocalDateTime updateTime;
     //分类名称
+    @Column(name = "name")
     private String categoryName;
     //菜品关联的口味
-    private List<DishFlavor> flavors = new ArrayList<>();
+//    private List<DishFlavor> flavors = new ArrayList<>();
 
     //private Integer copies;
 }
